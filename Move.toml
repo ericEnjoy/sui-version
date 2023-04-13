@@ -9,5 +9,5 @@ Publisher = "0xedf52c0f937220aa1251248f8b092db82d07613c9549c6d1ca6963ba9b0bd335"
 Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "testnet" }
 
 [addresses]
-version =  "0x0"
+version =  "0xc33f74edc0409fcb23cd6693919661712e1b128dbb65a5665ec3672f039d8997"
 sui =  "0000000000000000000000000000000000000000000000000000000000000002"
