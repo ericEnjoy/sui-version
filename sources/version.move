@@ -1,21 +1,26 @@
 module version::version {
     use sui::table;
     use sui::package;
-    use sui::package::Publisher;
-    use std::type_name;
-    use sui::address;
-    use std::ascii;
     use sui::object::UID;
     use sui::tx_context::TxContext;
     use sui::transfer;
     use sui::object;
+    use sui::package::Publisher;
+    use std::ascii;
+    use sui::hex;
+    use sui::address;
 
     struct VERSION has drop{}
 
-    // id 0xf39535ec8b7857cd23d34183b2166e0400ca1a4a8a0e58e293377aef184a561d
+    // id 0x7651c281a2931614071628f3670e4de3d06d1c48fb3b03e418d2ab319356f2bd
     struct Version has key{
         id: UID,
         versions: table::Table<address, u64>
+    }
+
+    #[test_only]
+    public fun init_for_test(ctx: &mut TxContext){
+        init(VERSION{}, ctx)
     }
 
     fun init(witness:VERSION,ctx: &mut TxContext){
@@ -26,17 +31,13 @@ module version::version {
         })
     }
 
-    public entry fun add<K>(publisher: &Publisher , global_version : &mut Version) {
-        assert!(package::from_package<K>(publisher), 1);
-        let package =  type_name::get_address(&type_name::get<K>());
-        let addr = address::from_bytes(ascii::into_bytes(package));
+    public entry fun add(publisher: &Publisher , global_version : &mut Version) {
+        let addr = address::from_bytes(hex::decode(*ascii::as_bytes(package::published_package(publisher))));
         table::add(&mut global_version.versions, addr,0);
     }
 
-    public entry fun set<K>(publisher: &Publisher , global_version : &mut Version, version: u64) {
-        assert!(package::from_package<K>(publisher), 1);
-        let package =  type_name::get_address(&type_name::get<K>());
-        let addr = address::from_bytes(ascii::into_bytes(package));
+    public entry fun set(publisher: &Publisher , global_version : &mut Version, version: u64) {
+        let addr = address::from_bytes(hex::decode(*ascii::as_bytes(package::published_package(publisher))));
         *table::borrow_mut(&mut global_version.versions, addr) = version;
     }
 
@@ -44,14 +45,12 @@ module version::version {
         *table::borrow(& global_version.versions, addr)
     }
 
-    public fun borrow_mut<K>(publisher: &Publisher , global_version : &mut Version): &mut u64 {
-        assert!(package::from_package<K>(publisher), 1);
-        let package =  type_name::get_address(&type_name::get<K>());
-        let addr = address::from_bytes(ascii::into_bytes(package));
+    public fun borrow_mut(publisher: &Publisher , global_version : &mut Version): &mut u64 {
+        let addr = address::from_bytes(hex::decode(*ascii::as_bytes(package::published_package(publisher))));
         table::borrow_mut(&mut global_version.versions, addr)
     }
 
-    public fun contains<K>( global_version : & Version, addr: address): bool {
+    public fun contains( global_version : & Version, addr: address): bool {
         table::contains(& global_version.versions, addr)
     }
 }

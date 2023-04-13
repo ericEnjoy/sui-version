@@ -1,13 +1,13 @@
 [package]
 name = "version"
 version = "0.0.1"
-published-at = "0x7575b07ab93f335780fe934ea31e25ade3f325a1d3463e99339fd326917222a8"
-Upgrade-Cap = "0x4e7f58286747d3b9c227e9e68f0b21a40857a3f53c7f8386aa584c045395fa26"
-Publisher = "0xc4c1ec3f886c4a93d03b05dbb912c8d11c7c95fc5ea91fdc2e75488a789509ee"
+published-at = "0xc33f74edc0409fcb23cd6693919661712e1b128dbb65a5665ec3672f039d8997"
+Upgrade-Cap = "0xbdc57caf62bd0972af9cbbac2e19290c4a6b9497728d1f475d2944f5aee00ecc"
+Publisher = "0xedf52c0f937220aa1251248f8b092db82d07613c9549c6d1ca6963ba9b0bd335"
 
 [dependencies]
 Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "testnet" }
 
 [addresses]
-version =  "0x7575b07ab93f335780fe934ea31e25ade3f325a1d3463e99339fd326917222a8"
+version =  "0x0"
 sui =  "0000000000000000000000000000000000000000000000000000000000000002"
