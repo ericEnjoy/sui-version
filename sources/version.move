@@ -12,7 +12,7 @@ module version::version {
 
     struct VERSION has drop{}
 
-    // id 0xd949d9081db6b32e5ecbbe5a9776cbf80f9de32d8d8032c3de7d43bf57721cbf
+    // id 0xf39535ec8b7857cd23d34183b2166e0400ca1a4a8a0e58e293377aef184a561d
     struct Version has key{
         id: UID,
         versions: table::Table<address, u64>
@@ -40,7 +40,7 @@ module version::version {
         *table::borrow_mut(&mut global_version.versions, addr) = version;
     }
 
-    public fun get( global_version : &mut Version, addr: address): u64 {
+    public fun get( global_version : & Version, addr: address): u64 {
         *table::borrow(& global_version.versions, addr)
     }
 
