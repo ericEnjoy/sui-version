@@ -9,6 +9,7 @@ module version::version {
     use std::ascii;
     use sui::hex;
     use sui::address;
+    use std::type_name;
 
     struct VERSION has drop{}
 
@@ -31,6 +32,21 @@ module version::version {
         })
     }
 
+    #[test_only]
+    public fun add_for_test(addr: address, global_version : &mut Version){
+        table::add(&mut global_version.versions, addr,0);
+    }
+
+    #[test_only]
+    public fun set_for_test(addr: address, global_version : &mut Version, version: u64){
+        *table::borrow_mut(&mut global_version.versions, addr) = version;
+    }
+
+    #[test_only]
+    public fun borrow_mut_for_test(addr: address, global_version : &mut Version): &mut u64 {
+        table::borrow_mut(&mut global_version.versions, addr)
+    }
+
     public entry fun add(publisher: &Publisher , global_version : &mut Version) {
         let addr = address::from_bytes(hex::decode(*ascii::as_bytes(package::published_package(publisher))));
         table::add(&mut global_version.versions, addr,0);
@@ -39,6 +55,10 @@ module version::version {
     public entry fun set(publisher: &Publisher , global_version : &mut Version, version: u64) {
         let addr = address::from_bytes(hex::decode(*ascii::as_bytes(package::published_package(publisher))));
         *table::borrow_mut(&mut global_version.versions, addr) = version;
+    }
+
+    public fun get_by_T<T>(global_version : & Version):u64{
+        get(global_version, address::from_bytes(hex::decode(*ascii::as_bytes(&type_name::get_address(&type_name::get<T>())))))
     }
 
     public fun get( global_version : & Version, addr: address): u64 {
