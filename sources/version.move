@@ -13,7 +13,7 @@ module version::version {
 
     struct VERSION has drop{}
 
-    // id 0x7651c281a2931614071628f3670e4de3d06d1c48fb3b03e418d2ab319356f2bd
+    // id 0x940519686e92ae9d33d3b15d76cf49568ed59e33ccd032d1cd853e329f51afdd
     struct Version has key{
         id: UID,
         versions: table::Table<address, u64>
