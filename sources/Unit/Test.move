@@ -25,13 +25,13 @@ module version::Test {
 
             version::add(&publisher, &mut global_version);
 
-            assert!(version::contains(&global_version, @0x0), 1);
+            assert!(version::contains(&global_version, @version), 1);
 
-            assert!(version::get(&global_version, @0x0) == 0, 2);
+            assert!(version::get(&global_version, @version) == 0, 2);
 
             version::set(&publisher, &mut global_version, 1);
 
-            assert!(version::get(&global_version, @0x0) == 1, 3);
+            assert!(version::get(&global_version, @version) == 1, 3);
 
             test_scenario::return_to_address(creator,publisher);
             test_scenario::return_shared(global_version);
