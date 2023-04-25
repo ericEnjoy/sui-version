@@ -6,7 +6,7 @@ Upgrade-Cap = "0xf0cbb36d949a1e2430172692b3de9b5b17dc61347bb60c675d1e57127a4fc74
 Publisher = "0x779c247429ae3e5b5970337095032b133c405530b39e4e57608ea3f5b7b73ff0"
 
 [dependencies]
-Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "testnet" }
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "cab7e9762d4d75126a78fdd009b405745657fe57" }
 
 [addresses]
 version =  "0x8eedf8924eb3a7a008326ce19198240adfd748bb0c63d468103da8f5baee669c"
